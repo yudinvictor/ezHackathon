@@ -9,8 +9,13 @@ export class ApiService {
 
   constructor(private http: HttpClient) {
   }
-  getNodes(data) {
-    return this.http.post(Endpoints.getData, data);
+  uploadData(data) {
+    return this.http.post(Endpoints.uploadData, data);
+  }
+  uploadChanges(changes) {
+    return this.http.post(Endpoints.uploadChanges, {
+      changes
+    });
   }
 }
 

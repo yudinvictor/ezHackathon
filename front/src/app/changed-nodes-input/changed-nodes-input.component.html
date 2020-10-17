@@ -1,0 +1,27 @@
+<mat-form-field appearance="fill">
+  <mat-label >Коллиство изменившхся вершин</mat-label>
+  <mat-select [formControl]="numberOfChangesControl">
+    <mat-option>None</mat-option>
+    <mat-option *ngFor="let value of possibleNumbersOfChanges" [value]="value">{{ value }}</mat-option>
+  </mat-select>
+</mat-form-field>
+<form class="flex-column"
+      [formGroup]="form"
+      style="width: 400px;"
+>
+  <div *ngFor="let i of numbers" style="display: flex; justify-content: space-between">
+    <mat-form-field appearance="fill" style="width: 130px">
+      <mat-label >Название </mat-label>
+      <input matInput [formControlName]="'name ' + i" class="ng">
+    </mat-form-field>
+    <mat-form-field appearance="fill" style="width: 130px">
+      <mat-label> Дата старта </mat-label>
+      <input matInput [formControlName]="'date_start ' + i" class="ng">
+    </mat-form-field>
+    <mat-form-field appearance="fill" style="width: 130px">
+      <mat-label >Длительность </mat-label>
+      <input matInput [formControlName]="'length ' + i" class="ng">
+    </mat-form-field>
+  </div>
+  <button mat-raised-button color="accent" style="width: 10rem" type="submit" [disabled]="form.invalid"> Отправить </button>
+</form>

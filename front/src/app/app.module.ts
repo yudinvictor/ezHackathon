@@ -7,6 +7,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatTabsModule} from '@angular/material/tabs';
 import {NodesListInputModule} from './nodes-input/nodes-list-input/nodes-list-input.module';
 import {ChangesListModule} from './changes-list/changes-list.module';
+import {ChangedNodesInputModule} from './changed-nodes-input/changed-nodes-input.module';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -17,8 +19,10 @@ import {ChangesListModule} from './changes-list/changes-list.module';
     BrowserModule,
     BrowserAnimationsModule,
     MatTabsModule,
+    HttpClientModule,
     NodesListInputModule,
-    ChangesListModule
+    ChangesListModule,
+    ChangedNodesInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

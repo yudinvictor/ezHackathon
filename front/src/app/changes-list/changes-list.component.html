@@ -1,28 +1,31 @@
-<table mat-table [dataSource]="changedNodes">
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef> Название задачи &nbsp; </th>
-    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-  </ng-container>
-  <ng-container matColumnDef="plannedStart">
-    <th mat-header-cell *matHeaderCellDef> Планируемый старт &nbsp; </th>
-    <td mat-cell *matCellDef="let element"> {{element.plannedStart}} </td>
-  </ng-container>
-  <ng-container matColumnDef="realStart">
-    <th mat-header-cell *matHeaderCellDef> Новый старт &nbsp; </th>
-    <td mat-cell *matCellDef="let element"> {{element.realStart}} </td>
-  </ng-container>
-  <ng-container matColumnDef="plannedLength">
-    <th mat-header-cell *matHeaderCellDef> Планируемый длина &nbsp; </th>
-    <td mat-cell *matCellDef="let element"> {{element.plannedLength}} </td>
-  </ng-container>
-  <ng-container matColumnDef="realLength">
-    <th mat-header-cell *matHeaderCellDef> Новая длина &nbsp; </th>
-    <td mat-cell *matCellDef="let element"> {{element.realLength}} </td>
-  </ng-container>
-  <ng-container matColumnDef="penalty">
-    <th mat-header-cell *matHeaderCellDef> Дополнительная доплата &nbsp; </th>
-    <td mat-cell *matCellDef="let element"> {{element.penalty}} </td>
-  </ng-container>
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+<div style="width: 100%">
+  <table mat-table [dataSource]="changedNodes" style="width: 100%;">
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Название задачи &nbsp;</th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+    <ng-container matColumnDef="plannedStart">
+      <th mat-header-cell *matHeaderCellDef> Планируемый старт &nbsp;</th>
+      <td mat-cell [ngClass]="element.isCondition ? 'condition' : ''" *matCellDef="let element" > {{element.plannedStart}} </td>
+    </ng-container>
+    <ng-container matColumnDef="realStart">
+      <th mat-header-cell *matHeaderCellDef> Новый старт &nbsp;</th>
+      <td mat-cell [ngClass]="element.isCondition ? 'condition' : ''" *matCellDef="let element"> {{element.realStart}} </td>
+    </ng-container>
+    <ng-container matColumnDef="plannedLength">
+      <th mat-header-cell *matHeaderCellDef> Планируемый длина &nbsp;</th>
+      <td mat-cell [ngClass]="element.isCondition ? 'condition' : ''" *matCellDef="let element"> {{element.plannedLength}} </td>
+    </ng-container>
+    <ng-container matColumnDef="realLength">
+      <th mat-header-cell *matHeaderCellDef> Новая длина &nbsp;</th>
+      <td mat-cell [ngClass]="element.isCondition ? 'condition' : ''" *matCellDef="let element"> {{element.realLength}} </td>
+    </ng-container>
+    <ng-container matColumnDef="penalty">
+      <th mat-header-cell *matHeaderCellDef> Дополнительная доплата &nbsp;</th>
+      <td mat-cell [ngClass]="element.isCondition ? 'condition' : ''" *matCellDef="let element"> {{element.penalty}} </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>

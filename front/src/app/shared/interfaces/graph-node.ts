@@ -1,6 +1,4 @@
 export interface GraphNode {
-  children: number[];
-  parents: number[];
   name: string;
   plannedStart: number;
   plannedLength: number;
@@ -9,6 +7,7 @@ export interface GraphNode {
   penalty: number;
   isMilestone: boolean;
   nearMilestone: boolean;
+  isCondition: boolean;
 }
 
 

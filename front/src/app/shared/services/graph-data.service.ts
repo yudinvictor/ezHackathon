@@ -18,11 +18,10 @@ export class GraphDataService {
         realStart: 0,
         plannedLength: 12,
         realLength: 13,
-        children: [],
         isMilestone: false,
         nearMilestone: false,
-        parents: [],
         penalty: 0,
+        isCondition: false,
       },
     ]
   );
