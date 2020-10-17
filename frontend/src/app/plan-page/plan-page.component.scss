@@ -37,6 +37,14 @@ table {
     border-radius: 4px;
     padding: 0 10px;
     width: 100%;
+    transition: 0.1s;
+    &:hover{
+      background: #eaeaea;
+    }
+    &:focus{
+      background: white;
+      border: 2px solid #3F51B5;
+    }
   }
 }
 
@@ -52,11 +60,18 @@ table {
   border-radius: 6px;
   padding: 20px;
   margin-bottom: 20px;
+  overflow: auto;
   .title-help-block{
     font-size: 18px;
     font-weight: 500;
     margin-bottom: 20px;
   }
+}
+
+.option-plan-list{
+  max-height: 400px;
+  overflow: auto;
+  padding: 10px 0;
 }
 
 .change-task-inputs{
@@ -68,6 +83,7 @@ table {
   padding: 10px 15px;
   border-radius: 6px;
   cursor: pointer;
+  margin-bottom: 5px;
   &:hover{
     background: #fafafa;
   }
