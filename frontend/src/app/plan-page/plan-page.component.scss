@@ -12,6 +12,13 @@ table {
   width: 100%;
 }
 
+table {
+  th, td {
+    width: 40px;
+    text-align: center;
+  }
+}
+
 .mat-elevation-z8{
   border-radius: 5px;
   overflow: hidden;
