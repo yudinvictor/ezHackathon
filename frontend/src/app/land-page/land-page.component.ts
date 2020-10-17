@@ -34,4 +34,11 @@ export class LandPageComponent implements OnInit {
       console.log(resp);
     })
   }
+
+  test() {
+    this.http.get('http://127.0.0.1:8000/table/').subscribe( resp=> {
+      console.log(resp);
+      // console.log(resp);
+    })
+  }
 }
