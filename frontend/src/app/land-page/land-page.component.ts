@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {Component, OnInit} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {ApiService} from '../services/api.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-land-page',
@@ -12,7 +14,8 @@ export class LandPageComponent implements OnInit {
 
   selectedFile: File = new File([], '');
 
-  constructor(private http: HttpClient) { }
+  constructor(private apiService: ApiService, private snackBar: MatSnackBar, private http: HttpClient) {
+  }
 
   ngOnInit(): void {
   }
@@ -25,20 +28,24 @@ export class LandPageComponent implements OnInit {
     console.log('event', event);
     this.selectedFile = (event.target as HTMLInputElement).files[0];
     console.log('name', this.selectedFile.name);
+    this.apiService.uploadFile(this.selectedFile).subscribe(
+      (value) => {
+        console.log(value);
+        this.openSnackBar('Файл успешно загружен', null);
+      }
+    );
+  }
 
-
-    const fd = new FormData();
-    fd.append('file', this.selectedFile, this.selectedFile.name);
-    const url = this.url;
-    this.http.post(url, fd).subscribe(resp => {
-      console.log(resp);
-    })
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000,
+    });
   }
 
   test() {
-    this.http.get('http://127.0.0.1:8000/table/').subscribe( resp=> {
+    this.http.get('http://127.0.0.1:8000/table/').subscribe(resp => {
       console.log(resp);
       // console.log(resp);
-    })
+    });
   }
 }
