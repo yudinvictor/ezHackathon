@@ -1,0 +1,95 @@
+.container{
+  margin-top: 40px;
+}
+
+.title-main-block{
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+table {
+  width: 100%;
+}
+
+.mat-elevation-z8{
+  border-radius: 5px;
+  overflow: hidden;
+  border: 1px solid #F4F5F7;
+  box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.1);
+}
+
+.add-task{
+  margin-top: 20px;
+}
+.add-task-input{
+  width: 100%;
+  margin-right: 10px;
+
+  input{
+    outline: none;
+    background: #f0f0f0;
+    border: 2px solid #e8e8e8;
+    height: 40px;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 40px;
+    border-radius: 4px;
+    padding: 0 10px;
+    width: 100%;
+  }
+}
+
+.help-col{
+  padding-right: 60px;
+}
+
+.help-block{
+  width: 100%;
+  border: 1px solid #F4F5F7;
+  box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.1);
+  min-height: 200px;
+  border-radius: 6px;
+  padding: 20px;
+  margin-bottom: 20px;
+  .title-help-block{
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+}
+
+.change-task-inputs{
+  margin-bottom: 10px;
+}
+
+.option-plan{
+  //border-bottom: 1px solid #e6e6e6;
+  padding: 10px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  &:hover{
+    background: #fafafa;
+  }
+}
+
+.option-plan-time{
+  margin-bottom: 6px;
+  .mat-icon{
+    height: 20px;
+    width: 20px;
+    font-size: 20px;
+    margin-right: 7px;
+  }
+}
+
+.option-plan-selected{
+  color: #17BF63 !important;
+  font-weight: 500;
+  background: rgba(23, 191, 99, 0.1) !important;
+  //background: red;
+}
+
+.mb10{
+  margin-bottom:  10px !important;
+}
