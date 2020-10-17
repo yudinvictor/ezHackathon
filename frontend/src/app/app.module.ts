@@ -8,12 +8,14 @@ import {MaterialModule} from "./material-module";
 import { MainLayoutComponent } from './main-layout/main-layout.component';
 import { LandPageComponent } from './land-page/land-page.component';
 import {HttpClientModule} from "@angular/common/http";
+import { PlanPageComponent } from './plan-page/plan-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainLayoutComponent,
-    LandPageComponent
+    LandPageComponent,
+    PlanPageComponent
   ],
   imports: [
     BrowserModule,

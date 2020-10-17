@@ -1,0 +1,128 @@
+<div class="container">
+  <div class="row">
+    <div class="col-4 help-col">
+
+      <div class="help-block">
+        <div class="title-help-block mb10">
+          Варианты оптимизации
+        </div>
+        <div class="help-block-main">
+          <div class="option-plan-list">
+            <div class="option-plan">
+              <div class="option-plan-time flex-center-y">
+                <mat-icon aria-hidden="false" aria-label="Example home icon">date_range</mat-icon>
+                Закончим к 1000 дню
+              </div>
+              <div class="option-plan-time flex-center-y">
+                <mat-icon aria-hidden="false" aria-label="Example home icon">attach_money</mat-icon>
+                Заплатим 200
+              </div>
+            </div>
+
+            <div class="option-plan option-plan-selected">
+              <div class="option-plan-time flex-center-y">
+                <mat-icon aria-hidden="false" aria-label="Example home icon">date_range</mat-icon>
+                Закончим к 1000 дню
+              </div>
+              <div class="option-plan-time flex-center-y">
+                <mat-icon aria-hidden="false" aria-label="Example home icon">attach_money</mat-icon>
+                Заплатим 200
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="help-block">
+        <div class="title-help-block">
+          Внести изменения в сроки
+        </div>
+        <div class="help-block-main">
+          <div class="change-task-inputs flex-center-y">
+            <div class="add-task-input">
+              <input type="text" placeholder="Новая дата начала">
+            </div>
+          </div>
+          <div class="change-task-inputs flex-center-y">
+            <div class="add-task-input">
+              <input type="text" placeholder="Новая нормальная длительность">
+            </div>
+          </div>
+          <div class="change-task-inputs flex-center-y">
+            <div class="add-task-input">
+              <input type="text" placeholder="ID">
+            </div>
+            <div class="add-task-input">
+              <button mat-flat-button color="primary">Изменить задачу</button>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+
+    </div>
+    <div class="col-8 mail-col">
+      <div class="main-block">
+        <div class="title-main-block">
+          Ваши задачи
+        </div>
+        <div class="main-block-content">
+          <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource">
+
+              <!-- Position Column -->
+              <ng-container matColumnDef="position">
+                <th mat-header-cell *matHeaderCellDef> No. </th>
+                <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+              </ng-container>
+
+              <!-- Name Column -->
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Name </th>
+                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+              </ng-container>
+
+              <!-- Weight Column -->
+              <ng-container matColumnDef="weight">
+                <th mat-header-cell *matHeaderCellDef> Weight </th>
+                <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+              </ng-container>
+
+              <!-- Symbol Column -->
+              <ng-container matColumnDef="symbol">
+                <th mat-header-cell *matHeaderCellDef> Symbol </th>
+                <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+          </div>
+
+          <div class="add-task flex-center-y">
+            <div class="add-task-input">
+              <input type="text" placeholder="Название задачи">
+            </div>
+            <div class="add-task-input">
+              <input type="text" placeholder="Дата начала">
+            </div>
+            <div class="add-task-input">
+              <input type="text" placeholder="Зависимый id">
+            </div>
+            <div class="add-task-input">
+              <input type="text" placeholder="Цена сдвига">
+            </div>
+            <div class="add-task-button">
+              <button mat-flat-button color="primary">Создать задачу</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
