@@ -1,0 +1,78 @@
+.wrap-page{
+  position: absolute;
+  top: 60px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #FDFDFE;
+  z-index: 2;
+}
+
+.wrap-loading-menu{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  //justify-content: flex-end;
+  height: calc(100vh - 60px);
+}
+
+.loading-menu{
+  z-index: 1;
+  width: 100%;
+  min-height: 450px;
+  //margin-top: 50px;
+  border: 1px solid #F4F5F7;
+  box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  border-radius: 10px;
+  background: white;
+  position: relative;
+  bottom: 40px;
+  padding: 30px 30px;
+}
+.loading-menu-title{
+  font-size: 30px;
+  font-weight: 500;
+  color: #253858;
+  margin-bottom: 20px;
+  line-height: 1.3;
+}
+
+.loading-menu-rofl-img{
+  margin-bottom: 10px;
+}
+
+.loading-menu-rofl-text{
+  font-size: 18px;
+  color: #646464;
+  line-height: 1.4;
+}
+
+
+.rofl-left-down{
+  position: absolute;
+  left : 0;
+  bottom: 0;
+  width: 500px;
+  z-index: -1;
+}
+
+.rofl-jira{
+  width: 90%;
+  position: relative;
+  bottom: 30px;
+}
+
+.container-fluid{
+  padding: 0 20px;
+  max-width: 1400px;
+}
+
+.loading-menu-button{
+  margin-top: 120px;
+  button{
+    width: 100%;
+    font-size: 19px;
+    height: 45px;
+  }
+}
