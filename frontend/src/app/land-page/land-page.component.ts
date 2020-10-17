@@ -8,7 +8,7 @@ import {HttpClient} from "@angular/common/http";
 })
 export class LandPageComponent implements OnInit {
 
-  url = 'http://localhost:8000/';
+  url = 'http://localhost:8000/upload/';
 
   selectedFile: File = new File([], '');
 
