@@ -104,7 +104,6 @@ def add_change(request):
         print(json.loads(request.body.decode('utf-8')))
         change_graph(**json.loads(request.body.decode('utf-8')))
         os.system('.\\rosatom.exe')
-        return Response(get_resp())
     return JsonResponse({'ok': True})
 
 

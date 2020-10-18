@@ -152,7 +152,7 @@ export class PlanPageComponent implements OnInit, AfterViewInit {
     get realData(): any[] {
         console.log(this.selectedOptimization);
         const options = this.optimizeOptions;
-        return options[options.penalty[this.selectedOptimization][1]];
+        return options[options.penalty[this.selectedOptimization][0]];
     }
 
     selectFinishPlan = 0;
