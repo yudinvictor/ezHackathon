@@ -166,6 +166,7 @@ export class PlanPageComponent implements OnInit, AfterViewInit {
 
     onSubmit() {
         console.log('hello');
+        console.log(this.changesIdControl);
         this.nodesService.addChanges(
             this.changesIdControl.value,
             this.changesDateControl.value,

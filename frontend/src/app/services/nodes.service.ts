@@ -22,9 +22,12 @@ export class NodesService {
   }
 
   getGraph(change) {
-    this.apiService.getGraph(change).subscribe((value: any) => {
+    console.log(change);
+    this.apiService.change(change).subscribe((value: any) => {
       console.log(value);
-      this.optimizeOptions = value;
+      this.apiService.getData().subscribe(value1 => {
+        this.optimizeOptions = value1;
+      });
     });
   }
 }

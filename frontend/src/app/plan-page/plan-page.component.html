@@ -31,17 +31,17 @@
         <div class="help-block-main">
           <div class="change-task-inputs flex-center-y">
             <div class="add-task-input">
-              <input type="text" placeholder="Новая дата начала">
+              <input type="text" placeholder="Новая дата начала" formControlName="date">
             </div>
           </div>
           <div class="change-task-inputs flex-center-y">
             <div class="add-task-input">
-              <input type="text" placeholder="Новая нормальная длительность">
+              <input type="text" placeholder="Новая нормальная длительность" formControlName="duration">
             </div>
           </div>
           <div class="change-task-inputs flex-center-y">
             <div class="add-task-input">
-              <input type="text" placeholder="ID">
+              <input type="text" placeholder="ID" formControlName="id">
             </div>
             <div class="add-task-input">
               <button mat-flat-button color="primary" type="submit" [disabled]="formChanges.invalid">Изменить задачу
