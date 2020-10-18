@@ -35,17 +35,22 @@ class TableDetail(APIView):
 @csrf_exempt
 def upload(request):
     names = dict()
+    vehs = dict()
     if request.method == 'POST':
         with open('input.txt', 'wb') as f:
             f.write(request.FILES['file'].read())
         with open('input.txt') as file:
             for line in file.readlines():
-                elems = line.split()
+                elems = line.strip().split()
                 if len(elems) < 4:
                     continue 
                 id = elems[0]
                 name = elems[1]
+                vehs[int(id)] = (elems[-1] == 'True')
                 names[int(id)] = name
+
+        save_obj(names, 'names')
+        save_obj(vehs, 'vehs')        
 
     return JsonResponse({'ok': True})
 
@@ -63,9 +68,11 @@ def get_resp():
                'Фактическая длительность', 'Штраф за изменение длительности']
 
     name_col = 'Имя'
-    new_columns =  [columns[0]] + [name_col] + columns[1:]
+    name_veh = 'is_big'
+    new_columns =  [columns[0]] + [name_col] + columns[1:] + [name_veh]
     dct['columns'] = new_columns
     names_dict = load_obj('names')
+    vehs_dict = load_obj('vehs')
     with open('output.txt') as file:
         for line in file.readlines():
             elems = line.strip().split()
@@ -76,6 +83,7 @@ def get_resp():
                     tmp_df = pd.DataFrame(arr, columns=columns).sort_values(
                         ['Штраф за перенос даты', 'Штраф за изменение длительности'], ascending=False)
                     tmp_df[name_col] = tmp_df['Номер'].apply(lambda x: names_dict[x].replace('_', ' '))
+                    tmp_df[name_veh] = tmp_df['Номер'].apply(lambda x: vehs_dict[x])
                     tmp_df = tmp_df[new_columns]
                     dct[str(now_id)] = tmp_df.to_numpy()
                     arr = []
@@ -87,7 +95,8 @@ def get_resp():
         tmp_df = pd.DataFrame(arr, columns=columns).sort_values(['Штраф за перенос даты', 'Штраф за изменение длительности'],
                                                            ascending=False)
 
-        tmp_df[name_col] = tmp_df['Номер'].apply(lambda x: names_dict[x].replace('_', ' '))                                                           
+        tmp_df[name_col] = tmp_df['Номер'].apply(lambda x: names_dict[x].replace('_', ' '))
+        tmp_df[name_veh] = tmp_df['Номер'].apply(lambda x: vehs_dict[x])                                                           
         tmp_df = tmp_df[new_columns]
         dct[str(now_id)] = tmp_df.to_numpy()
     dct['penalty'] = penalty
