@@ -97,6 +97,8 @@ export class PlanPageComponent implements OnInit, AfterViewInit {
 
     onSelectOptimization(index) {
         this.selectedOptimization = index;
+        this.dataSource = new MatTableDataSource<any[]>(this.realData);
+        this.dataSource.paginator = this.paginator;
     }
 
     ngAfterViewInit() {
