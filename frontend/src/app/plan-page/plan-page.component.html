@@ -8,27 +8,6 @@
         </div>
         <div class="help-block-main">
           <div class="option-plan-list">
-            <div class="option-plan">
-              <div class="option-plan-time flex-center-y">
-                <mat-icon aria-hidden="false" aria-label="Example home icon">date_range</mat-icon>
-                Закончим к 1000 дню
-              </div>
-              <div class="option-plan-time flex-center-y">
-                <mat-icon aria-hidden="false" aria-label="Example home icon">attach_money</mat-icon>
-                Заплатим 200
-              </div>
-            </div>
-
-            <div class="option-plan option-plan-selected">
-              <div class="option-plan-time flex-center-y">
-                <mat-icon aria-hidden="false" aria-label="Example home icon">date_range</mat-icon>
-                Закончим к 1000 дню
-              </div>
-              <div class="option-plan-time flex-center-y">
-                <mat-icon aria-hidden="false" aria-label="Example home icon">attach_money</mat-icon>
-                Заплатим 200
-              </div>
-            </div>
             <div *ngFor="let optimization of optimizeOptions.penalty; index as i" class="option-plan"
                  [ngClass]="i === selectedOptimization ? 'option-plan-selected' : ''"
                  (click)="onSelectOptimization(i)">
