@@ -111,7 +111,7 @@ def get_resp():
         tmp_df = tmp_df[new_columns]
         dct[str(now_id)] = tmp_df.to_numpy()
     dct['penalty'] = penalty
-    print(dct['penalty'])
+    #print(dct['penalty'])
     return dct
 
 
