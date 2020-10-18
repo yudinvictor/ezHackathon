@@ -5,7 +5,7 @@ import {ApiService} from './api.service';
   providedIn: 'root'
 })
 export class NodesService {
-  optimizeOptions: any = {penalty: []};
+  optimizeOptions: any = {penalty: [[0, 0]], 0: [[0, 0, 0, 0, 0, 0, 0]]};
   changes = [];
 
   constructor(private apiService: ApiService) {
