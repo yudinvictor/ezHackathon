@@ -19,6 +19,8 @@ export class ApiService {
     return this.httpClient.post(Endpoints.change, changes);
   }
   getData() {
+    console.log('get data');
+    console.log(Endpoints.getData);
     return this.httpClient.get(Endpoints.getData);
   }
 }

@@ -8,7 +8,6 @@ from rest_framework.views import APIView
 import os
 import pandas as pd
 from django.views.decorators.csrf import csrf_exempt
-from main.functions import save_obj, load_obj
 import json
 
 
@@ -35,7 +34,6 @@ class TableDetail(APIView):
 @csrf_exempt
 def upload(request):
     if request.method == 'POST':
-        names = {}
         with open('input.txt', 'wb') as f:
             f.write(request.FILES['file'].read())
         with open('input.txt') as file:
@@ -46,8 +44,6 @@ def upload(request):
                 id = elems[0]
                 name = elems[1]
                 names[int(id)] = name
-
-        save_obj(names, 'names')
 
     return JsonResponse({'ok': True})
 
@@ -97,7 +93,6 @@ def get_resp():
 
 
 def change_graph(id, start_date, duration):
-    print('change graph', id, start_date, duration)
     new_file = []
 
     with open('input.txt', 'r') as file:
@@ -127,19 +122,14 @@ def change_graph(id, start_date, duration):
 @csrf_exempt
 def add_change(request):
     if request.method == 'POST':
-        print('data_to_add_change', json.loads(request.body.decode('utf-8')))
+        print(json.loads(request.body.decode('utf-8')))
         change_graph(**json.loads(request.body.decode('utf-8')))
-        #os.system('.\\rosatom.exe')
-        #return Response(get_resp())
+        os.system('./vies')
     return JsonResponse({'ok': True})
 
 
 class GetResult(APIView):
     def get(self, request):
-        print('start')
-        os.system('.\\rosatom.exe')
-        print('stop')
         resp = get_resp()
-        
-        #print(resp.keys())
+        print(resp.keys())
         return Response(resp)
