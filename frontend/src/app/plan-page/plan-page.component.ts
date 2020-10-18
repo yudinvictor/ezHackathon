@@ -26,6 +26,9 @@ export class PlanPageComponent implements OnInit, AfterViewInit {
     get dataHeader() {
         const columns = this.optimizeOptions.columns;
         if (columns) {
+            if (columns.last === 'is_big') {
+                columns.pop();
+            }
             return columns;
         }
         return ['Номер', 'Старт', 'Новый старт', 'Штраф', 'Изначальная длительность', 'Фактическая длительность', 'Штраф за длину'];
@@ -128,4 +131,11 @@ export class PlanPageComponent implements OnInit, AfterViewInit {
         });
     }
 
+    get isBigCol() {
+        return this.dataHeader.indexOf('is_big');
+    }
+
+    classByElement(element: any) {
+        return element[this.isBigCol] ? 'big' : '';
+    }
 }
