@@ -5,23 +5,25 @@ import {ApiService} from './api.service';
   providedIn: 'root'
 })
 export class NodesService {
-  optimizeOptions: any = [[0, 0, [[0, 0, 0, 0, 0, 0, 0]]], [0, 0, [[0, 0, 0, 0, 0, 0, 1]]]];
+  optimizeOptions: any = {penalty: []};
   changes = [];
 
   constructor(private apiService: ApiService) {
   }
 
   addChanges(id, start_date, duration) {
-    this.changes.push({
+    const change = {
       id,
       start_date,
       duration,
-    });
-    this.getGraph();
+    };
+    this.changes.push(change);
+    this.getGraph(change);
   }
 
-  getGraph() {
-    this.apiService.getGraph(this.changes).subscribe((value: any) => {
+  getGraph(change) {
+    this.apiService.getGraph(change).subscribe((value: any) => {
+      console.log(value);
       this.optimizeOptions = value;
     });
   }

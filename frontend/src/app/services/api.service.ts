@@ -16,8 +16,6 @@ export class ApiService {
     return this.httpClient.post(Endpoints.uploadFile, formData);
   }
   getGraph(changes) {
-    return this.httpClient.post(Endpoints.getData, {
-      changes,
-    });
+    return this.httpClient.post(Endpoints.getData, changes);
   }
 }

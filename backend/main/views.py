@@ -6,6 +6,7 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.views import APIView
 import os
+import json
 import pandas as pd
 from django.views.decorators.csrf import csrf_exempt
 
@@ -95,8 +96,9 @@ def change_graph(id, start_date, duration):
 @csrf_exempt
 def add_change(request):
     if request.method == 'POST':
-        print(request.data)
-        change_graph(**request.data)
+        change_graph(**json.loads(request.body.decode('utf-8')))
+        os.system('./prog')
+        return JsonResponse(get_resp())
     return JsonResponse({'ok': True})
 
 class GetResult(APIView):

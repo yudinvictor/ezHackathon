@@ -165,6 +165,7 @@ export class PlanPageComponent implements OnInit, AfterViewInit {
     columnNums = [0, 1, 2, 3, 4, 5, 6];
 
     onSubmit() {
+        console.log('hello');
         this.nodesService.addChanges(
             this.changesIdControl.value,
             this.changesDateControl.value,
