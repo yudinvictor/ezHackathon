@@ -29,11 +29,23 @@
                 Заплатим 200
               </div>
             </div>
+            <div *ngFor="let optimization of optimizeOptions.penalty; index as i" class="option-plan"
+                 [ngClass]="i === selectedOptimization ? 'option-plan-selected' : ''"
+                 (click)="onSelectOptimization(i)">
+              <div class="option-plan-time flex-center-y">
+                <mat-icon aria-hidden="false" aria-label="Example home icon">date_range</mat-icon>
+                Закончим к {{ optimization[0] }} дню
+              </div>
+              <div class="option-plan-time flex-center-y">
+                <mat-icon aria-hidden="false" aria-label="Example home icon">attach_money</mat-icon>
+                Заплатим {{ optimization[1] }}
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="help-block">
+      <form class="help-block" [formGroup]="formChanges" (submit)="onSubmit()">
         <div class="title-help-block">
           Внести изменения в сроки
         </div>
@@ -53,13 +65,14 @@
               <input type="text" placeholder="ID">
             </div>
             <div class="add-task-input">
-              <button mat-flat-button color="primary">Изменить задачу</button>
+              <button mat-flat-button color="primary" type="submit" [disabled]="formChanges.invalid">Изменить задачу
+              </button>
             </div>
           </div>
 
 
         </div>
-      </div>
+      </form>
 
     </div>
     <div class="col-8 mail-col">
@@ -69,7 +82,7 @@
         </div>
         <div class="main-block-content">
           <div class="mat-elevation-z8">
-            <table mat-table [dataSource]="dataSource">
+            <table mat-table [dataSource]="realData">
               <ng-container *ngFor="let columnNum of columnNums" [matColumnDef]="dataHeader[columnNum]">
                 <th mat-header-cell *matHeaderCellDef> {{ dataHeader[columnNum]}} &nbsp;</th>
                 <td mat-cell *matCellDef="let element" style="text-align: center"> {{element[columnNum]}} </td>

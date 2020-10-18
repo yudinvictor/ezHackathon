@@ -15,4 +15,9 @@ export class ApiService {
     formData.append('file', file, file.name);
     return this.httpClient.post(Endpoints.uploadFile, formData);
   }
+  getGraph(changes) {
+    return this.httpClient.post(Endpoints.getData, {
+      changes,
+    });
+  }
 }

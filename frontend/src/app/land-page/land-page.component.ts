@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ApiService} from '../services/api.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-land-page',
@@ -14,7 +15,7 @@ export class LandPageComponent implements OnInit {
 
   selectedFile: File = new File([], '');
 
-  constructor(private apiService: ApiService, private snackBar: MatSnackBar, private http: HttpClient) {
+  constructor(private apiService: ApiService, private snackBar: MatSnackBar, private http: HttpClient, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -29,9 +30,13 @@ export class LandPageComponent implements OnInit {
     this.selectedFile = (event.target as HTMLInputElement).files[0];
     console.log('name', this.selectedFile.name);
     this.apiService.uploadFile(this.selectedFile).subscribe(
-      (value) => {
-        console.log(value);
-        this.openSnackBar('Файл успешно загружен', null);
+      (value: any) => {
+        if (value.ok) {
+          this.openSnackBar('Файл успешно загружен', null);
+          setTimeout(() => this.router.navigate(['/plan']), 2100);
+        } else {
+          this.openSnackBar('Что-то пошло не так(', null);
+        }
       }
     );
   }

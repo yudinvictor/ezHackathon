@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {AfterViewInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
+import {NodesService} from '../services/nodes.service';
+import {FormControl, FormGroup} from '@angular/forms';
 
 export interface PeriodicElement {
     name: string;
@@ -17,7 +19,11 @@ export interface PeriodicElement {
 })
 export class PlanPageComponent implements OnInit, AfterViewInit {
 
+    constructor(private nodesService: NodesService) {
+    }
+
     dataHeader = ['Номер', 'Старт', 'Новый старт', 'Штраф', 'Изначальная длительность', 'Фактическая длительность', 'Штраф за длину'];
+    selectedOptimization = 0;
 
     data = [[10000, 2449, 1278, 43327, 0, 0, 0],
         [8562, 429, 429, 0, 0, 0, 0],
@@ -120,19 +126,59 @@ export class PlanPageComponent implements OnInit, AfterViewInit {
         [1083, 7, 7, 0, 18, 18, 0],
         [3959, 67, 67, 0, 0, 0, 0]];
 
+    formChanges = new FormGroup({
+            id: new FormControl(),
+            date: new FormControl(),
+            duration: new FormControl(),
+        }
+    );
+
+    get changesIdControl() {
+        return this.formChanges.get('id');
+    }
+
+    get changesDateControl() {
+        return this.formChanges.get('date');
+    }
+
+    get changesDurationControl() {
+        return this.formChanges.get('duration');
+    }
+
+    get optimizeOptions() {
+        return this.nodesService.optimizeOptions;
+    }
+
+    get realData(): any[] {
+        console.log(this.selectedOptimization);
+        const options = this.optimizeOptions;
+        return options[options.penalty[this.selectedOptimization][1]];
+    }
 
     selectFinishPlan = 0;
 
-    dataSource = new MatTableDataSource<number[]>(this.data);
+    get dataSource() {
+        return new MatTableDataSource<any[]>(this.realData);
+    }
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
     columnNums = [0, 1, 2, 3, 4, 5, 6];
 
-    ngAfterViewInit() {
-        this.dataSource.paginator = this.paginator;
+    onSubmit() {
+        this.nodesService.addChanges(
+            this.changesIdControl.value,
+            this.changesDateControl.value,
+            this.changesDurationControl.value,
+        );
+        this.formChanges.reset();
     }
 
-    constructor() {
+    onSelectOptimization(index) {
+        this.selectedOptimization = index;
+    }
+
+    ngAfterViewInit() {
+        this.dataSource.paginator = this.paginator;
     }
 
     ngOnInit(): void {
