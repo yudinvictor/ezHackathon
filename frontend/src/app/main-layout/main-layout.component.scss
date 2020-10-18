@@ -35,6 +35,10 @@
   font-weight: 500;
   border-radius: 7px;
   transition: 0.1s;
+  height: 40px;
+  svg{
+    margin-right: 5px;
+  }
   &:hover{
     background: rgba(63, 81, 181, 0.1);
     color: #3F51B5;
@@ -56,7 +60,6 @@ img{
 }
 
 .right-header{
-  width: 50px;
   flex-shrink: 0;
   .user-avatar{
     width: 35px;
@@ -66,4 +69,24 @@ img{
 
 .wrap-content{
   padding-top: 60px;
+}
+
+.github-project{
+  cursor: pointer;
+  padding: 5px 5px 5px 10px;
+  border-radius: 6px;
+  transition: 0.1s;
+  &:hover{
+    background: rgba(63, 81, 181, 0.1);
+  }
+}
+
+.github-project-logo{
+  width: 33px;
+}
+
+.github-project-text{
+  font-weight: 600;
+  font-size: 18px;
+  margin: 0 10px;
 }
