@@ -4,6 +4,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import {NodesService} from '../services/nodes.service';
 import {FormControl, FormGroup} from '@angular/forms';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 export interface PeriodicElement {
     name: string;
@@ -19,7 +20,7 @@ export interface PeriodicElement {
 })
 export class PlanPageComponent implements OnInit, AfterViewInit {
 
-    constructor(private nodesService: NodesService) {
+    constructor(private nodesService: NodesService, private snackBar: MatSnackBar) {
     }
 
     get dataHeader() {
@@ -89,6 +90,7 @@ export class PlanPageComponent implements OnInit, AfterViewInit {
                 this.selectedOptimization = 0;
                 this.dataSource = new MatTableDataSource<any[]>(this.realData);
                 this.dataSource.paginator = this.paginator;
+                this.openSnackBar('Данные успешно обновленны');
             }
         );
         this.formChanges.reset();
@@ -97,19 +99,23 @@ export class PlanPageComponent implements OnInit, AfterViewInit {
 
     onSelectOptimization(index) {
         this.selectedOptimization = index;
-        this.dataSource = new MatTableDataSource<any[]>(this.realData);
-        this.dataSource.paginator = this.paginator;
+        this.dataSource.data = this.realData;
     }
 
     ngAfterViewInit() {
         this.dataSource.paginator = this.paginator;
     }
 
+    openSnackBar(message: string, action: string = null) {
+        this.snackBar.open(message, action, {
+            duration: 2000,
+        });
+    }
+
     ngOnInit(): void {
         this.nodesService.getGraph(null, (val) => {
             this.selectedOptimization = 0;
-            this.dataSource = new MatTableDataSource<any[]>(this.realData);
-            this.dataSource.paginator = this.paginator;
+            this.dataSource.data = this.realData;
         });
     }
 
