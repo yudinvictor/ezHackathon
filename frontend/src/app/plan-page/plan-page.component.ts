@@ -5,6 +5,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import {NodesService} from '../services/nodes.service';
 import {FormControl, FormGroup} from '@angular/forms';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatSort} from '@angular/material/sort';
 
 export interface PeriodicElement {
     name: string;
@@ -26,8 +27,7 @@ export class PlanPageComponent implements OnInit, AfterViewInit {
     get dataHeader() {
         let columns: any[] = this.optimizeOptions.columns;
         if (columns) {
-            columns = [...columns];
-            if (this.checkIsBig) {
+            if (!this.haveIsBig && this.checkIsBig) {
                 this.haveIsBig = true;
                 columns.pop();
             }
@@ -40,7 +40,6 @@ export class PlanPageComponent implements OnInit, AfterViewInit {
 
     get checkIsBig() {
         const columns: any[] = this.optimizeOptions.columns;
-        console.log(columns);
         if (!columns) {
             return false;
         }
@@ -106,6 +105,7 @@ export class PlanPageComponent implements OnInit, AfterViewInit {
                 this.selectedOptimization = 0;
                 this.dataSource = new MatTableDataSource<any[]>(this.realData);
                 this.dataSource.paginator = this.paginator;
+                this.haveIsBig = false;
                 this.openSnackBar('Данные успешно обновленны');
             }
         );
@@ -141,6 +141,7 @@ export class PlanPageComponent implements OnInit, AfterViewInit {
         this.nodesService.getGraph(null, (val) => {
             this.selectedOptimization = 0;
             this.dataSource.data = this.realData;
+            this.haveIsBig = false;
         });
     }
 
