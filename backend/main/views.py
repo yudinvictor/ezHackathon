@@ -38,14 +38,17 @@ def upload(request):
 
     return JsonResponse({'ok': True})
 
+
 def get_resp():
     penalty = []
     arr = []
     dct = {}
-    dct['columns'] = ['Номер', 'Старт', 'Новый старт', 'Штраф за перенос даты', 'Изначальная длительность', 'Фактическая длительность', 'Штраф за изменение длительности']
+    dct['columns'] = ['Номер', 'Старт', 'Новый старт', 'Штраф за перенос даты', 'Изначальная длительность',
+                      'Фактическая длительность', 'Штраф за изменение длительности']
 
     now_id = False
-    columns = ['Номер', 'Старт', 'Новый старт', 'Штраф за перенос даты', 'Изначальная длительность', 'Фактическая длительность', 'Штраф за изменение длительности']
+    columns = ['Номер', 'Старт', 'Новый старт', 'Штраф за перенос даты', 'Изначальная длительность',
+               'Фактическая длительность', 'Штраф за изменение длительности']
     with open('output.txt') as file:
         for line in file.readlines():
             elems = line.strip().split()
@@ -53,13 +56,16 @@ def get_resp():
                 arr.append(list(map(int, elems)))
             else:
                 if now_id != False:
-                    dct[str(now_id)] = list(pd.DataFrame(arr, columns=columns).sort_values(['Штраф за перенос даты', 'Штраф за изменение длительности'], ascending=False).to_numpy())
+                    dct[str(now_id)] = list(pd.DataFrame(arr, columns=columns).sort_values(
+                        ['Штраф за перенос даты', 'Штраф за изменение длительности'], ascending=False).to_numpy())
                     arr = []
                 if len(elems) == 2:
                     penalty.append((int(elems[0]), int(elems[1])))
                 if len(elems) == 1:
                     now_id = int(elems[0])
-        dct[str(now_id)] = list(pd.DataFrame(arr, columns=columns).sort_values(['Штраф за перенос даты', 'Штраф за изменение длительности'], ascending=False).to_numpy())
+        dct[str(now_id)] = list(
+            pd.DataFrame(arr, columns=columns).sort_values(['Штраф за перенос даты', 'Штраф за изменение длительности'],
+                                                           ascending=False).to_numpy())
     dct['penalty'] = penalty
     return dct
 
@@ -86,11 +92,10 @@ def change_graph(id, start_date, duration):
             else:
                 new_file.append(elems)
 
-
-
     with open('input.txt', 'w') as file:
         for line in new_file:
             file.write(' '.join(map(str, line)) + '\n')
+
 
 @csrf_exempt
 def add_change(request):
@@ -99,6 +104,8 @@ def add_change(request):
         change_graph(**request.data)
     return JsonResponse({'ok': True})
 
+
 class GetResult(APIView):
     def get(self, request):
+        os.system('./prog')
         return Response(get_resp())
