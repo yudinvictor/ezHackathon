@@ -45,11 +45,12 @@ def upload(request):
                     continue 
                 id = elems[0]
                 name = elems[1]
-                names[id] = name
+                names[int(id)] = name
 
         save_obj(names, 'names')
 
     return JsonResponse({'ok': True})
+
 
 
 def get_resp():
@@ -62,8 +63,11 @@ def get_resp():
     now_id = False
     columns = ['Номер', 'Старт', 'Новый старт', 'Штраф за перенос даты', 'Изначальная длительность',
                'Фактическая длительность', 'Штраф за изменение длительности']
-    new_columns = columns[:-2]
+
+    name_col = 'Имя'
+    new_columns =  [columns[0]] + [name_col] + columns[1:]
     dct['columns'] = new_columns
+    names_dict = load_obj('names')
     with open('output.txt') as file:
         for line in file.readlines():
             elems = line.strip().split()
@@ -73,7 +77,7 @@ def get_resp():
                 if now_id != False:
                     tmp_df = pd.DataFrame(arr, columns=columns).sort_values(
                         ['Штраф за перенос даты', 'Штраф за изменение длительности'], ascending=False)
-                    
+                    tmp_df[name_col] = tmp_df['Номер'].apply(lambda x: names_dict[x].replace('_', ' '))
                     tmp_df = tmp_df[new_columns]
                     dct[str(now_id)] = tmp_df.to_numpy()
                     arr = []
@@ -84,6 +88,8 @@ def get_resp():
 
         tmp_df = pd.DataFrame(arr, columns=columns).sort_values(['Штраф за перенос даты', 'Штраф за изменение длительности'],
                                                            ascending=False)
+
+        tmp_df[name_col] = tmp_df['Номер'].apply(lambda x: names_dict[x].replace('_', ' '))                                                           
         tmp_df = tmp_df[new_columns]
         dct[str(now_id)] = tmp_df.to_numpy()
     dct['penalty'] = penalty
