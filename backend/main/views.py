@@ -53,13 +53,13 @@ def get_resp():
                 arr.append(list(map(int, elems)))
             else:
                 if now_id != False:
-                    dct[str(now_id)] = pd.DataFrame(arr, columns=columns).sort_values(['Штраф за перенос даты', 'Штраф за изменение длительности'], ascending=False).to_numpy()
+                    dct[str(now_id)] = list(pd.DataFrame(arr, columns=columns).sort_values(['Штраф за перенос даты', 'Штраф за изменение длительности'], ascending=False).to_numpy())
                     arr = []
                 if len(elems) == 2:
                     penalty.append((int(elems[0]), int(elems[1])))
                 if len(elems) == 1:
                     now_id = int(elems[0])
-        dct[str(now_id)] = pd.DataFrame(arr, columns=columns).sort_values(['Штраф за перенос даты', 'Штраф за изменение длительности'], ascending=False).to_numpy()
+        dct[str(now_id)] = list(pd.DataFrame(arr, columns=columns).sort_values(['Штраф за перенос даты', 'Штраф за изменение длительности'], ascending=False).to_numpy())
     return dct
 
 
@@ -98,9 +98,6 @@ def add_change(request):
         change_graph(**request.data)
     return JsonResponse({'ok': True})
 
-def get_result(request):
-    os.system('./prog')
-    resp = get_resp()
-    print(type(resp))
-    print(resp)
-    return JsonResponse(get_resp())
+class GetResult(APIView):
+    def get(self, request):
+        return Response(get_resp())
