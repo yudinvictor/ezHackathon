@@ -24,14 +24,27 @@ export class PlanPageComponent implements OnInit, AfterViewInit {
     }
 
     get dataHeader() {
-        const columns: any[] = this.optimizeOptions.columns;
+        let columns: any[] = this.optimizeOptions.columns;
         if (columns) {
-            if (columns[columns.length - 1] === 'is_big') {
+            columns = [...columns];
+            if (this.checkIsBig) {
+                this.haveIsBig = true;
                 columns.pop();
             }
             return columns;
         }
         return ['Номер', 'Старт', 'Новый старт', 'Штраф', 'Изначальная длительность', 'Фактическая длительность', 'Штраф за длину'];
+    }
+
+    haveIsBig = false;
+
+    get checkIsBig() {
+        const columns: any[] = this.optimizeOptions.columns;
+        console.log(columns);
+        if (!columns) {
+            return false;
+        }
+        return columns[columns.length - 1] === 'is_big';
     }
 
     selectedOptimization = 0;
@@ -136,6 +149,10 @@ export class PlanPageComponent implements OnInit, AfterViewInit {
     }
 
     classByElement(element: any) {
-        return element[this.isBigCol] ? 'big' : '';
+        if (this.haveIsBig) {
+            return element[element.length - 1] ? 'big' : '';
+        } else {
+            return '';
+        }
     }
 }
