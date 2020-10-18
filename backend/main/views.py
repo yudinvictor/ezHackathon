@@ -71,9 +71,12 @@ def get_resp():
     name_veh = 'is_big'
     new_columns =  [columns[0]] + [name_col] + columns[1:] + [name_veh]
     dct['columns'] = new_columns
+    critical = dict()
     names_dict = load_obj('names')
     vehs_dict = load_obj('vehs')
+
     with open('output.txt') as file:
+        flag = True
         for line in file.readlines():
             elems = line.strip().split()
             if len(elems) > 2:
@@ -88,9 +91,17 @@ def get_resp():
                     dct[str(now_id)] = tmp_df.to_numpy()
                     arr = []
                 if len(elems) == 2:
-                    penalty.append((int(elems[0]), int(elems[1])))
+                    penalty.append([int(elems[0]), int(elems[1])])
                 if len(elems) == 1:
-                    now_id = int(elems[0])
+                    if flag:
+                        now_id = int(elems[0])
+                        flag = False
+                    else:
+                        critical[now_id] = int(elems[0])
+                        flag = True 
+
+        for idx in range(len(penalty)):
+            penalty[idx].append(critical[penalty[idx][0]])
 
         tmp_df = pd.DataFrame(arr, columns=columns).sort_values(['Штраф за перенос даты', 'Штраф за изменение длительности'],
                                                            ascending=False)
@@ -100,6 +111,7 @@ def get_resp():
         tmp_df = tmp_df[new_columns]
         dct[str(now_id)] = tmp_df.to_numpy()
     dct['penalty'] = penalty
+    print(dct['penalty'])
     return dct
 
 
@@ -143,7 +155,7 @@ class GetResult(APIView):
     def get(self, request):
         #print(resp.keys())
         print('start')
-        os.system('.\\rosatom.exe')
+        os.system('.\\rosatom1.exe')
         resp = get_resp()
         print('stop')
         return Response(resp)
