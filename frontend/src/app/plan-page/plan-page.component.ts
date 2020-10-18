@@ -158,7 +158,9 @@ export class PlanPageComponent implements OnInit, AfterViewInit {
     selectFinishPlan = 0;
 
     get dataSource() {
-        return new MatTableDataSource<any[]>(this.realData);
+        const data = new MatTableDataSource<any[]>(this.realData);
+        data.paginator = this.paginator;
+        return data;
     }
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
