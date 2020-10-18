@@ -60,6 +60,7 @@ def get_resp():
                 if len(elems) == 1:
                     now_id = int(elems[0])
         dct[str(now_id)] = list(pd.DataFrame(arr, columns=columns).sort_values(['Штраф за перенос даты', 'Штраф за изменение длительности'], ascending=False).to_numpy())
+    dct['penalty'] = penalty
     return dct
 
 
