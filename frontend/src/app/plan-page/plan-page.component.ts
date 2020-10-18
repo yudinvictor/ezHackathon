@@ -24,9 +24,9 @@ export class PlanPageComponent implements OnInit, AfterViewInit {
     }
 
     get dataHeader() {
-        const columns = this.optimizeOptions.columns;
+        const columns: any[] = this.optimizeOptions.columns;
         if (columns) {
-            if (columns.last === 'is_big') {
+            if (columns[columns.length - 1] === 'is_big') {
                 columns.pop();
             }
             return columns;
