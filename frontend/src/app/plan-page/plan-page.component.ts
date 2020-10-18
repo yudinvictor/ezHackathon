@@ -97,6 +97,15 @@ export class PlanPageComponent implements OnInit, AfterViewInit {
         this.dataSource.data = this.realData;
     }
 
+    applyFilter(event: Event) {
+        const filterValue = (event.target as HTMLInputElement).value;
+        this.dataSource.filter = filterValue.trim().toLowerCase();
+
+        if (this.dataSource.paginator) {
+            this.dataSource.paginator.firstPage();
+        }
+    }
+
     onSelectOptimization(index) {
         this.selectedOptimization = index;
         this.dataSource.data = this.realData;
