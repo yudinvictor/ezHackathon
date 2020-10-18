@@ -36,8 +36,17 @@ def upload(request):
     if request.method == 'POST':
         with open('input.txt', 'wb') as f:
             f.write(request.FILES['file'].read())
+        with open('input.txt') as file:
+            for line in file.readlines():
+                elems = line.split()
+                if len(elems) < 4:
+                    continue 
+                id = elems[0]
+                name = elems[1]
+                names[int(id)] = name
 
     return JsonResponse({'ok': True})
+
 
 
 def get_resp():
@@ -50,6 +59,11 @@ def get_resp():
     now_id = False
     columns = ['Номер', 'Старт', 'Новый старт', 'Штраф за перенос даты', 'Изначальная длительность',
                'Фактическая длительность', 'Штраф за изменение длительности']
+
+    name_col = 'Имя'
+    new_columns =  [columns[0]] + [name_col] + columns[1:]
+    dct['columns'] = new_columns
+    names_dict = load_obj('names')
     with open('output.txt') as file:
         for line in file.readlines():
             elems = line.strip().split()
@@ -57,16 +71,23 @@ def get_resp():
                 arr.append(list(map(int, elems)))
             else:
                 if now_id != False:
-                    dct[str(now_id)] = list(pd.DataFrame(arr, columns=columns).sort_values(
-                        ['Штраф за перенос даты', 'Штраф за изменение длительности'], ascending=False).to_numpy())
+                    tmp_df = pd.DataFrame(arr, columns=columns).sort_values(
+                        ['Штраф за перенос даты', 'Штраф за изменение длительности'], ascending=False)
+                    tmp_df[name_col] = tmp_df['Номер'].apply(lambda x: names_dict[x].replace('_', ' '))
+                    tmp_df = tmp_df[new_columns]
+                    dct[str(now_id)] = tmp_df.to_numpy()
                     arr = []
                 if len(elems) == 2:
                     penalty.append((int(elems[0]), int(elems[1])))
                 if len(elems) == 1:
                     now_id = int(elems[0])
-        dct[str(now_id)] = list(
-            pd.DataFrame(arr, columns=columns).sort_values(['Штраф за перенос даты', 'Штраф за изменение длительности'],
-                                                           ascending=False).to_numpy())
+
+        tmp_df = pd.DataFrame(arr, columns=columns).sort_values(['Штраф за перенос даты', 'Штраф за изменение длительности'],
+                                                           ascending=False)
+
+        tmp_df[name_col] = tmp_df['Номер'].apply(lambda x: names_dict[x].replace('_', ' '))                                                           
+        tmp_df = tmp_df[new_columns]
+        dct[str(now_id)] = tmp_df.to_numpy()
     dct['penalty'] = penalty
     return dct
 
