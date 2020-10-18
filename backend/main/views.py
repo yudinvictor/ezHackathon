@@ -8,6 +8,7 @@ from rest_framework.views import APIView
 import os
 import pandas as pd
 from django.views.decorators.csrf import csrf_exempt
+from main.functions import load_obj, save_obj
 import json
 
 
@@ -33,6 +34,7 @@ class TableDetail(APIView):
 
 @csrf_exempt
 def upload(request):
+    names = dict()
     if request.method == 'POST':
         with open('input.txt', 'wb') as f:
             f.write(request.FILES['file'].read())
@@ -124,12 +126,15 @@ def add_change(request):
     if request.method == 'POST':
         print(json.loads(request.body.decode('utf-8')))
         change_graph(**json.loads(request.body.decode('utf-8')))
-        os.system('./vies')
+        os.system('.\\rosatom.exe')
     return JsonResponse({'ok': True})
 
 
 class GetResult(APIView):
     def get(self, request):
         resp = get_resp()
-        print(resp.keys())
+        #print(resp.keys())
+        print('start')
+        os.system('.\\rosatom.exe')
+        print('stop')
         return Response(resp)
