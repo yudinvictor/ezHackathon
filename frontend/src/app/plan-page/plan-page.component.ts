@@ -85,7 +85,11 @@ export class PlanPageComponent implements OnInit, AfterViewInit {
             this.changesIdControl.value,
             this.changesDateControl.value,
             this.changesDurationControl.value,
-            (val) => this.dataSource.data = val,
+            (val) => {
+                this.selectedOptimization = 0;
+                this.dataSource = new MatTableDataSource<any[]>(this.realData);
+                this.dataSource.paginator = this.paginator;
+            }
         );
         this.formChanges.reset();
         this.dataSource.data = this.realData;
@@ -100,7 +104,11 @@ export class PlanPageComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit(): void {
-        this.nodesService.getGraph(null, (val) => this.dataSource.data = val);
+        this.nodesService.getGraph(null, (val) => {
+            this.selectedOptimization = 0;
+            this.dataSource = new MatTableDataSource<any[]>(this.realData);
+            this.dataSource.paginator = this.paginator;
+        });
     }
 
 }
