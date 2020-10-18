@@ -126,15 +126,15 @@ def add_change(request):
     if request.method == 'POST':
         print(json.loads(request.body.decode('utf-8')))
         change_graph(**json.loads(request.body.decode('utf-8')))
-        os.system('.\\rosatom.exe')
+        # os.system('.\\rosatom.exe')
     return JsonResponse({'ok': True})
 
 
 class GetResult(APIView):
     def get(self, request):
-        resp = get_resp()
         #print(resp.keys())
         print('start')
         os.system('.\\rosatom.exe')
+        resp = get_resp()
         print('stop')
         return Response(resp)
